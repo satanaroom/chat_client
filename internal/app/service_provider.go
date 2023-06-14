@@ -17,6 +17,7 @@ import (
 	chatV1 "github.com/satanaroom/chat_server/pkg/chat_v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 type serviceProvider struct {
@@ -94,7 +95,7 @@ func (s *serviceProvider) AuthClient(ctx context.Context) authClient.Client {
 
 func (s *serviceProvider) ChatClient(ctx context.Context) chatClient.Client {
 	if s.chatClient == nil {
-		opts := grpc.WithTransportCredentials(s.TLSCredentials(ctx))
+		opts := grpc.WithTransportCredentials(insecure.NewCredentials())
 
 		conn, err := grpc.DialContext(ctx, s.ChatClientConfig().Host(), opts)
 		if err != nil {

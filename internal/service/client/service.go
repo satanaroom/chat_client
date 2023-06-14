@@ -13,14 +13,17 @@ var _ Service = (*service)(nil)
 
 type Service interface {
 	Login(ctx context.Context, credentials *model.UserCredentials) error
-	CreateChat(ctx context.Context, username string) error
+	CreateChat(ctx context.Context, loggedUsername string, usernames []string) (int64, error)
 	ConnectChat(ctx context.Context) error
+	SetLoggedUsername(ctx context.Context, username string) error
+	GetLoggedUsername(ctx context.Context) (string, error)
 }
 
 type service struct {
 	authClient       authClient.Client
 	chatClient       chatClient.Client
 	accessRepository accessRepository.Repository
+	loggedUsername   string
 }
 
 func NewService(auth authClient.Client, chat chatClient.Client, accessRepository accessRepository.Repository) *service {

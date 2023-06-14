@@ -12,12 +12,18 @@ type Tokener interface {
 	GetToken(ctx context.Context, key string) (string, error)
 }
 
+type Register interface {
+	SetLoggedUsername(ctx context.Context, username string) error
+	GetLoggedUsername(ctx context.Context) (string, error)
+}
+
 type Pinger interface {
 	Ping(ctx context.Context) (string, error)
 }
 
 type Redis interface {
 	Tokener
+	Register
 	Pinger
 	Close() error
 }
@@ -36,6 +42,18 @@ func (r *redis) SetToken(ctx context.Context, tokenInfo *model.TokenInfo) error 
 
 func (r *redis) GetToken(ctx context.Context, key string) (string, error) {
 	status := r.rdb.Get(ctx, key)
+	return status.Result()
+}
+
+func (r *redis) SetLoggedUsername(ctx context.Context, username string) error {
+	status := r.rdb.Set(ctx, model.RegisteredUsername, username, 0)
+	if status.Err() != nil {
+		return status.Err()
+	}
+	return nil
+}
+func (r *redis) GetLoggedUsername(ctx context.Context) (string, error) {
+	status := r.rdb.Get(ctx, model.RegisteredUsername)
 	return status.Result()
 }
 

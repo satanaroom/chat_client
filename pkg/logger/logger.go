@@ -1,9 +1,7 @@
 package logger
 
 import (
-	"fmt"
 	"os"
-	"time"
 
 	"github.com/sirupsen/logrus"
 )
@@ -19,8 +17,8 @@ func initLogger() *logrus.Logger {
 	}
 }
 
-func getLogger() *logrus.Entry {
-	return l.WithField("time", fmt.Sprintf("[%s]", time.Now().UTC().String()))
+func getLogger() *logrus.Logger {
+	return l
 }
 
 func Infof(message string, args ...interface{}) {

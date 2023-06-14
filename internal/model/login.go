@@ -2,6 +2,8 @@ package model
 
 import "time"
 
+const RegisteredUsername = "registered_username"
+
 type UserCredentials struct {
 	Username string
 	Password string

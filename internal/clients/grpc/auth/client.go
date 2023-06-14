@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	authV1 "github.com/satanaroom/auth/pkg/auth_v1"
-	"github.com/satanaroom/chat_client/internal/converter/auth"
+	converter "github.com/satanaroom/chat_client/internal/converter/auth"
 )
 
 var _ Client = (*client)(nil)
@@ -26,7 +26,7 @@ func NewClient(cl authV1.AuthV1Client) *client {
 }
 
 func (c *client) GetRefreshToken(ctx context.Context, username, password string) (string, error) {
-	resp, err := c.authClient.GetRefreshToken(ctx, auth.ToRefreshRequest(username, password))
+	resp, err := c.authClient.GetRefreshToken(ctx, converter.ToRefreshRequest(username, password))
 	if err != nil {
 		return "", fmt.Errorf("authClient.GetRefreshToken: %w", err)
 	}
@@ -35,7 +35,7 @@ func (c *client) GetRefreshToken(ctx context.Context, username, password string)
 }
 
 func (c *client) GetAccessToken(ctx context.Context, refreshToken string) (string, error) {
-	resp, err := c.authClient.GetAccessToken(ctx, auth.ToAccessRequest(refreshToken))
+	resp, err := c.authClient.GetAccessToken(ctx, converter.ToAccessRequest(refreshToken))
 	if err != nil {
 		return "", fmt.Errorf("authClient.GetAccessToken: %w", err)
 	}
