@@ -10,7 +10,6 @@ import (
 	authClient "github.com/satanaroom/chat_client/internal/clients/grpc/auth"
 	chatClient "github.com/satanaroom/chat_client/internal/clients/grpc/chat_server"
 	"github.com/satanaroom/chat_client/internal/closer"
-	commandV1 "github.com/satanaroom/chat_client/internal/command/command_v1"
 	"github.com/satanaroom/chat_client/internal/config"
 	accessRepository "github.com/satanaroom/chat_client/internal/repository/access"
 	clientService "github.com/satanaroom/chat_client/internal/service/client"
@@ -34,8 +33,6 @@ type serviceProvider struct {
 
 	redisClient      redis.Client
 	accessRepository accessRepository.Repository
-
-	client *commandV1.ChatClient
 }
 
 func newServiceProvider() *serviceProvider {
