@@ -6,13 +6,10 @@ import (
 
 func (c *ChatClient) InitRoot() {
 	rootCmd := &cobra.Command{
-		Use:     "stringer",
+		Use:     "Chat client",
 		Version: "0.0.1",
-		Short:   "stringer - a simple CLI to transform and inspect strings",
-		Long: `stringer is a super fancy CLI (kidding)
-    
-One can use stringer to modify or inspect strings straight from the terminal`,
-		Run: c.Root,
+		Short:   "Chat client - a simple CLI to chat in terminal",
+		Run:     c.Root,
 	}
 	c.root = rootCmd
 }

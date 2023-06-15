@@ -1,8 +1,6 @@
 package command_v1
 
 import (
-	"context"
-
 	"github.com/satanaroom/auth/pkg/logger"
 	"github.com/spf13/cobra"
 )
@@ -20,8 +18,7 @@ func (c *ChatClient) InitConnectChat() {
 }
 
 func (c *ChatClient) ConnectChat(_ *cobra.Command, _ []string) {
-	ctx := context.Background()
-	if err := c.clientService.ConnectChat(ctx); err != nil {
+	if err := c.clientService.ConnectChat(c.root.Context()); err != nil {
 		logger.Errorf("connect: %s", err.Error())
 	}
 }
