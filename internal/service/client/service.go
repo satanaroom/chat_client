@@ -23,7 +23,6 @@ type service struct {
 	authClient       authClient.Client
 	chatClient       chatClient.Client
 	accessRepository accessRepository.Repository
-	loggedUsername   string
 }
 
 func NewService(auth authClient.Client, chat chatClient.Client, accessRepository accessRepository.Repository) *service {
