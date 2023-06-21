@@ -38,7 +38,7 @@ func (a *App) Run() error {
 	go func() {
 		defer wg.Done()
 		if err := a.runChatClient(); err != nil {
-			logger.Fatalf("run GRPC server: %s", err.Error())
+			logger.Fatalf("failed of usage chat-client: %s", err.Error())
 		}
 	}()
 
@@ -79,7 +79,9 @@ func (a *App) initCommands(ctx context.Context) error {
 }
 
 func (a *App) runChatClient() error {
-	a.chatClient.Execute()
+	if err := a.chatClient.Execute(); err != nil {
+		return fmt.Errorf("execute: %w", err)
+	}
 
 	return nil
 }
