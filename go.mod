@@ -4,8 +4,8 @@ go 1.20
 
 require (
 	github.com/joho/godotenv v1.5.1
-	github.com/satanaroom/auth v0.0.0-20230605085208-98b2b543e739
-	github.com/satanaroom/chat_server v0.0.0-20230605085229-e6549ec0d697
+	github.com/satanaroom/auth v0.0.0-20230621072514-0a29e7f5feeb
+	github.com/satanaroom/chat_server v0.0.0-20230619114345-3e8d3fefa0c8
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/cobra v1.7.0
 	google.golang.org/grpc v1.55.0

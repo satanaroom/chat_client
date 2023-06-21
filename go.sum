@@ -34,8 +34,12 @@ github.com/redis/go-redis/v9 v9.0.5/go.mod h1:WqMKv5vnQbRuZstUwxQI195wHy+t4PuXDO
 github.com/russross/blackfriday/v2 v2.1.0/go.mod h1:+Rmxgy9KzJVeS9/2gXHxylqXiyQDYRxCVz55jmeOWTM=
 github.com/satanaroom/auth v0.0.0-20230605085208-98b2b543e739 h1:+77Gmam1uAv+5eaKLXz8Uh9m2b97qm8roDoFjRqUnHg=
 github.com/satanaroom/auth v0.0.0-20230605085208-98b2b543e739/go.mod h1:TJKiwCdkryhakyNdMpAJSmxGV80dwTaKEmcyOX/+GZI=
+github.com/satanaroom/auth v0.0.0-20230621072514-0a29e7f5feeb h1:hQahzceuNMQ6PIKW2Ny6GbtkArWAxTPAMKO/ogi6oeE=
+github.com/satanaroom/auth v0.0.0-20230621072514-0a29e7f5feeb/go.mod h1:TJKiwCdkryhakyNdMpAJSmxGV80dwTaKEmcyOX/+GZI=
 github.com/satanaroom/chat_server v0.0.0-20230605085229-e6549ec0d697 h1:m9K4792TV8031DXOq9yEMcJEZFcPoro11D9GEvuQqio=
 github.com/satanaroom/chat_server v0.0.0-20230605085229-e6549ec0d697/go.mod h1:QddbghKqH+ymiYndcnoK78bhEEcr8TsbuiL1yXdm2DY=
+github.com/satanaroom/chat_server v0.0.0-20230619114345-3e8d3fefa0c8 h1:TI4VqMtoFL0PGgTsnKGeKBnAYuCKHakvBiR34j7j+8M=
+github.com/satanaroom/chat_server v0.0.0-20230619114345-3e8d3fefa0c8/go.mod h1:I+MgeHj39O1QbyuuuKlc1uqcmSOpDl6vg9wsSMYdWbQ=
 github.com/sirupsen/logrus v1.9.3 h1:dueUQJ1C2q9oE3F7wvmSGAaVtTmUizReu6fjN8uqzbQ=
 github.com/sirupsen/logrus v1.9.3/go.mod h1:naHLuLoDiP4jHNo9R0sCBMtWGeIprob74mVsIT4qYEQ=
 github.com/spf13/cobra v1.7.0 h1:hyqWnYt1ZQShIddO5kBpj3vu05/++x6tJ6dg8EC572I=

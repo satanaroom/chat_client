@@ -13,6 +13,7 @@ var _ Client = (*client)(nil)
 type Client interface {
 	GetRefreshToken(ctx context.Context, username, password string) (string, error)
 	GetAccessToken(ctx context.Context, refreshToken string) (string, error)
+	UpdateRefreshToken(ctx context.Context, oldToken string) (string, error)
 }
 
 type client struct {
@@ -41,4 +42,13 @@ func (c *client) GetAccessToken(ctx context.Context, refreshToken string) (strin
 	}
 
 	return resp.GetAccessToken(), nil
+}
+
+func (c *client) UpdateRefreshToken(ctx context.Context, oldToken string) (string, error) {
+	resp, err := c.authClient.UpdateRefreshToken(ctx, converter.ToUpdateRefreshRequest(oldToken))
+	if err != nil {
+		return "", fmt.Errorf("authClient.UpdateRefreshToken: %w", err)
+	}
+
+	return resp.GetNewToken(), nil
 }

@@ -14,3 +14,9 @@ func ToAccessRequest(refreshToken string) *authV1.GetAccessTokenRequest {
 		RefreshToken: refreshToken,
 	}
 }
+
+func ToUpdateRefreshRequest(oldToken string) *authV1.UpdateRefreshTokenRequest {
+	return &authV1.UpdateRefreshTokenRequest{
+		OldToken: oldToken,
+	}
+}

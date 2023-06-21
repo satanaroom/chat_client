@@ -12,55 +12,40 @@ import (
 )
 
 func (c *ChatClient) InitCreateChat() {
-	createChat := &cobra.Command{
+	create := &cobra.Command{
 		Use:   "create",
-		Short: "Create chat room.",
-		Long:  "Chat room can be created by providing usernames divided by comma.",
-		Args:  cobra.ExactArgs(1),
+		Short: "Создание комнаты чата",
 		Run:   c.CreateChat,
 	}
 
-	c.root.AddCommand(createChat)
+	create.Flags().StringP("usernames", "u", "", "Участники чата, разделённые запятой")
+	if err := create.MarkFlagRequired("usernames"); err != nil {
+		logger.Fatalf("failed to mark usernames flag required: %s", err.Error())
+	}
+
+	c.root.AddCommand(create)
+
 }
 
-func (c *ChatClient) CreateChat(_ *cobra.Command, args []string) {
-	if len(args) < 1 {
-		out := color.RedString("You should pass usernames to create a chat.\n")
-		if _, err := io.WriteString(os.Stdout, out); err != nil {
-			logger.Errorf("failed to write to stdout: %s", err.Error())
-		}
-		return
-	}
-
-	loggedUsername, err := c.clientService.GetLoggedUsername(c.root.Context())
-	if err != nil || loggedUsername == "" {
-		out := color.RedString("You are not registered in the service.\n")
-		if _, err = io.WriteString(os.Stdout, out); err != nil {
-			logger.Errorf("failed to write to stdout: %s", err.Error())
-		}
-		return
-	}
-
-	usernames := strings.Split(args[0], ",")
-	if len(usernames) == 0 {
-		out := color.RedString("No usernames in command or there aren't valid.\n")
-		if _, err = io.WriteString(os.Stdout, out); err != nil {
-			logger.Errorf("failed to write to stdout: %s", err.Error())
-		}
-		return
-	}
-
-	chatId, err := c.clientService.CreateChat(c.root.Context(), loggedUsername, usernames)
+func (c *ChatClient) CreateChat(cmd *cobra.Command, _ []string) {
+	usernamesFlag, err := cmd.Flags().GetString("usernames")
 	if err != nil {
-		out := color.RedString("Chat could not be created.\n")
-		if _, err = io.WriteString(os.Stdout, out); err != nil {
+		if _, err = io.WriteString(os.Stdout, color.RedString("Необходимо указать участников чата для создания комнаты.\n")); err != nil {
 			logger.Errorf("failed to write to stdout: %s", err.Error())
 		}
 		return
 	}
 
-	userMsg := color.GreenString(fmt.Sprintf("Chat %d created successfully\n", chatId))
-	if _, err = io.WriteString(os.Stdout, userMsg); err != nil {
+	usernames := strings.Split(usernamesFlag, ",")
+	chatId, err := c.clientService.CreateChat(c.root.Context(), usernames)
+	if err != nil {
+		if _, err = io.WriteString(os.Stdout, color.RedString("Возникла ошибка при создании чата.\n")); err != nil {
+			logger.Errorf("failed to write to stdout: %s", err.Error())
+		}
+		return
+	}
+
+	if _, err = io.WriteString(os.Stdout, color.GreenString(fmt.Sprintf("Чат [%s] успешно создан.\n", chatId))); err != nil {
 		logger.Errorf("failed to write to stdout: %s", err.Error())
 	}
 }

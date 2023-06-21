@@ -6,26 +6,37 @@ import (
 
 var _ TLSConfig = (*tlsConfig)(nil)
 
-const tlsCertFileEnvName = "TLS_CLIENT_CERT_FILE"
+const (
+	tlsAuthCertFileEnvName       = "TLS_AUTH_CERT_FILE"
+	tlsChatServerCertFileEnvName = "TLS_CHAT_SERVER_CERT_FILE"
+)
 
 type TLSConfig interface {
-	CertFile() string
+	AuthCertFile() string
+	ChatServerCertFile() string
 }
 
 type tlsConfig struct {
-	certFile string
+	authCertFile       string
+	chatServerCertFile string
 }
 
 func NewTLSConfig() (*tlsConfig, error) {
-	var certFile string
+	var authCertFile, chatServerCertFile string
 
-	env.ToString(&certFile, tlsCertFileEnvName, "../auth/service.pem")
+	env.ToString(&authCertFile, tlsAuthCertFileEnvName, "../auth/service.pem")
+	env.ToString(&chatServerCertFile, tlsChatServerCertFileEnvName, "../chat_server/service.pem")
 
 	return &tlsConfig{
-		certFile: certFile,
+		authCertFile:       authCertFile,
+		chatServerCertFile: chatServerCertFile,
 	}, nil
 }
 
-func (c *tlsConfig) CertFile() string {
-	return c.certFile
+func (c *tlsConfig) AuthCertFile() string {
+	return c.authCertFile
+}
+
+func (c *tlsConfig) ChatServerCertFile() string {
+	return c.chatServerCertFile
 }

@@ -79,9 +79,7 @@ func (a *App) initCommands(ctx context.Context) error {
 }
 
 func (a *App) runChatClient() error {
-	if err := a.chatClient.Execute(); err != nil {
-		logger.Fatalf("execute root command: %s", err.Error())
-	}
+	a.chatClient.Execute()
 
 	return nil
 }

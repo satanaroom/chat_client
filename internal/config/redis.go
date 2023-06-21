@@ -6,7 +6,7 @@ import (
 
 var _ RedisConfig = (*redisConfig)(nil)
 
-const redisHostEnvName = "AUTH_HOST"
+const redisHostEnvName = "REDIS_HOST"
 
 type RedisConfig interface {
 	Host() string
@@ -18,7 +18,7 @@ type redisConfig struct {
 
 func NewRedisConfig() (*redisConfig, error) {
 	var host string
-	env.ToString(&host, redisHostEnvName, "localhost:6379")
+	env.ToString(&host, redisHostEnvName, "localhost:6369")
 
 	return &redisConfig{
 		host: host,
