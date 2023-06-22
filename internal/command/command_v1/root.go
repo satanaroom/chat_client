@@ -1,8 +1,7 @@
 package command_v1
 
 import (
-	"log"
-
+	"github.com/satanaroom/auth/pkg/logger"
 	"github.com/spf13/cobra"
 )
 
@@ -13,6 +12,6 @@ var root = &cobra.Command{
 
 func Execute() {
 	if err := root.Execute(); err != nil {
-		log.Fatalf("execute root: %s", err.Error())
+		logger.Fatalf("execute root: %s", err.Error())
 	}
 }
