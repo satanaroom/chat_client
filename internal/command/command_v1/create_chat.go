@@ -11,23 +11,21 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func (c *ChatClient) InitCreateChat() {
+func (c *ChatClient) AddCreateChatCmd() {
 	create := &cobra.Command{
 		Use:   "create",
 		Short: "Создание комнаты чата",
-		Run:   c.CreateChat,
+		Run:   c.CreateChatHandler,
 	}
 
 	create.Flags().StringP("usernames", "u", "", "Участники чата, разделённые запятой")
 	if err := create.MarkFlagRequired("usernames"); err != nil {
 		logger.Fatalf("failed to mark usernames flag required: %s", err.Error())
 	}
-
-	c.root.AddCommand(create)
-
+	root.AddCommand(create)
 }
 
-func (c *ChatClient) CreateChat(cmd *cobra.Command, _ []string) {
+func (c *ChatClient) CreateChatHandler(cmd *cobra.Command, _ []string) {
 	usernamesFlag, err := cmd.Flags().GetString("usernames")
 	if err != nil {
 		if _, err = io.WriteString(os.Stdout, color.RedString("Необходимо указать участников чата для создания комнаты.\n")); err != nil {
@@ -37,7 +35,7 @@ func (c *ChatClient) CreateChat(cmd *cobra.Command, _ []string) {
 	}
 
 	usernames := strings.Split(usernamesFlag, ",")
-	chatId, err := c.clientService.CreateChat(c.root.Context(), usernames)
+	chatId, err := c.clientService.CreateChat(root.Context(), usernames)
 	if err != nil {
 		if _, err = io.WriteString(os.Stdout, color.RedString("Возникла ошибка при создании чата.\n")); err != nil {
 			logger.Errorf("failed to write to stdout: %s", err.Error())

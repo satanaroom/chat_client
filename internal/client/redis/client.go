@@ -25,16 +25,11 @@ func NewClient(_ context.Context, opts *redisDb.Options) (*client, error) {
 }
 
 func (r *client) Set(ctx context.Context, key, value string, expiration time.Duration) error {
-	status := r.rdb.Set(ctx, key, value, expiration)
-	if status.Err() != nil {
-		return status.Err()
-	}
-	return nil
+	return r.rdb.Set(ctx, key, value, expiration).Err()
 }
 
 func (r *client) Get(ctx context.Context, key string) (string, error) {
-	status := r.rdb.Get(ctx, key)
-	return status.Result()
+	return r.rdb.Get(ctx, key).Result()
 }
 
 func (r *client) Close() error {

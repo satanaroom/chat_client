@@ -10,12 +10,12 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func (c *ChatClient) InitConnectChat() {
+func (c *ChatClient) AddConnectChatCmd() {
 	connect := &cobra.Command{
 		Use:   "connect",
 		Short: "Подключение к чату",
 		Long:  "Подключение к существующему чату по его айди",
-		Run:   c.ConnectChat,
+		Run:   c.ConnectChatHandler,
 	}
 
 	connect.Flags().StringP("chat-id", "c", "", "Айди существующего чата")
@@ -23,10 +23,10 @@ func (c *ChatClient) InitConnectChat() {
 		logger.Fatalf("failed to mark chat-id flag required: %s", err.Error())
 	}
 
-	c.root.AddCommand(connect)
+	root.AddCommand(connect)
 }
 
-func (c *ChatClient) ConnectChat(cmd *cobra.Command, _ []string) {
+func (c *ChatClient) ConnectChatHandler(cmd *cobra.Command, _ []string) {
 	chatId, err := cmd.Flags().GetString("chat-id")
 	if err != nil {
 		if _, err = io.WriteString(os.Stdout, color.RedString("Необходимо указать айди существующего чата для подключения к нему.\n")); err != nil {
@@ -35,7 +35,7 @@ func (c *ChatClient) ConnectChat(cmd *cobra.Command, _ []string) {
 		return
 	}
 
-	if err = c.clientService.ConnectChat(c.root.Context(), chatId); err != nil {
+	if err = c.clientService.ConnectChat(root.Context(), chatId); err != nil {
 		if _, err = io.WriteString(os.Stdout, color.RedString("Возникла ошибка при подключении к чату.\n")); err != nil {
 			logger.Errorf("failed to write to stdout: %s", err.Error())
 		}

@@ -2,20 +2,18 @@ package main
 
 import (
 	"context"
+	"log"
 
-	"github.com/satanaroom/auth/pkg/logger"
 	"github.com/satanaroom/chat_client/internal/app"
+	root "github.com/satanaroom/chat_client/internal/command/command_v1"
 )
 
 func main() {
 	ctx := context.Background()
 
-	chatClientApp, err := app.NewApp(ctx)
-	if err != nil {
-		logger.Fatalf("failed to initialize app: %s", err.Error())
+	if err := app.InitApp(ctx); err != nil {
+		log.Fatalf("init app: %s", err.Error())
 	}
 
-	if err = chatClientApp.Run(); err != nil {
-		logger.Fatalf("failed to run app: %s", err.Error())
-	}
+	root.Execute()
 }

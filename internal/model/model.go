@@ -2,7 +2,11 @@ package model
 
 import "time"
 
-const LoggedUsername = "logged_username"
+const (
+	LoggedUsername = "logged_username"
+	AccessToken    = "access_token"
+	RefreshToken   = "refresh_token"
+)
 
 type UserInfo struct {
 	Username string
@@ -13,11 +17,6 @@ type TokenInfo struct {
 	Username   string
 	Token      string
 	Expiration time.Duration
-}
-
-type UserTokens struct {
-	RefreshToken string `json:"refreshToken"`
-	AccessToken  string `json:"accessToken"`
 }
 
 type Message struct {

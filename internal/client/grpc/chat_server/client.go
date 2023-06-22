@@ -2,7 +2,6 @@ package chat_server
 
 import (
 	"context"
-	"fmt"
 
 	converter "github.com/satanaroom/chat_client/internal/converter/chat_server"
 	"github.com/satanaroom/chat_client/internal/model"
@@ -30,7 +29,7 @@ func NewClient(cl chatV1.ChatV1Client) *client {
 func (c *client) CreateChat(ctx context.Context, usernames []string) (string, error) {
 	resp, err := c.chatClient.CreateChat(ctx, converter.ToCreateChatRequest(usernames))
 	if err != nil {
-		return "", fmt.Errorf("chatClient.CreateChat: %w", err)
+		return "", err
 	}
 
 	return resp.GetChatId(), nil
@@ -39,7 +38,7 @@ func (c *client) CreateChat(ctx context.Context, usernames []string) (string, er
 func (c *client) ConnectChat(ctx context.Context, chatId string, username string) (chatV1.ChatV1_ConnectChatClient, error) {
 	resp, err := c.chatClient.ConnectChat(ctx, converter.ToConnectChatRequest(chatId, username))
 	if err != nil {
-		return nil, fmt.Errorf("chatClient.ConnectChat: %w", err)
+		return nil, err
 	}
 
 	return resp, nil
@@ -47,7 +46,7 @@ func (c *client) ConnectChat(ctx context.Context, chatId string, username string
 
 func (c *client) SendMessage(ctx context.Context, chatId string, message *model.Message) error {
 	if _, err := c.chatClient.SendMessage(ctx, converter.ToSendMessageRequest(chatId, message)); err != nil {
-		return fmt.Errorf("chatClient.SendMessage: %w", err)
+		return err
 	}
 
 	return nil
