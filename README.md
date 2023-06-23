@@ -6,7 +6,7 @@
 Chat-client - это CLI-приложение для создание чатов, подключения и отправку сообщений.
 Клиент проходит аутентификацию в сервисе [auth](https://github.com/satanaroom/auth), 
 получая **refresh** и **access** токены на основе `jwt`. Запросы на создание чата, 
-отправку сообщение и подключения отправляются на сервис [chat_server](https://github.com/satanaroom/chat_server).
+отправку сообщений и подключения отправляются на сервис [chat_server](https://github.com/satanaroom/chat_server).
 
 ## Quick start
 Для работы необходимо установить [Docker](https://docs.docker.com/engine/install/) и [Docker Compose](https://docs.docker.com/compose/install/).
