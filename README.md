@@ -1,7 +1,7 @@
 # Chat-client for gRPC course project
 
 [![build-and-test](https://github.com/satanaroom/chat_client/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/satanaroom/chat_client/actions/workflows/build-and-test.yml)
-[![golangci-lint](https://github.com/satanaroom/chat_client/actions/workflows/golangci-lint.yml/badge.svg)](https://github.com/satanaroom/chat_client/actions/workflows/golangci-lint.yml)
+[![golangci-lint](https://github.com/satanaroom/chat_client/actions/workflows/golangci-lint.yml/badge.svg?branch=main)](https://github.com/satanaroom/chat_client/actions/workflows/golangci-lint.yml)
 
 Chat-client - это CLI-приложение для создание чатов, подключения и отправку сообщений.
 Клиент проходит аутентификацию в сервисе [auth](https://github.com/satanaroom/auth), 
